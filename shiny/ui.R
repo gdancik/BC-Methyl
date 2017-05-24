@@ -27,6 +27,18 @@ shinyUI(
 	HTML("<a href = \"https://github.com/gdancik/BC-Methyl/blob/master/geneList_fdr10.xlsx?raw=true\">Download Table </a>") 
       ),
       mainPanel(
+ conditionalPanel(
+        condition="$('html').hasClass('shiny-busy')",
+
+		    HTML("<br><br>"),
+                    HTML("<div class=\"progress\" style=\"height:25px !important\"><div class=\"progress-bar progress-bar-striped active\" role=\"progressbar\" aria-valuenow=\"100\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width:100%\">
+        <span id=\"bar-text\"><b><font size=\"+1.5\">Loading, please wait...</font></b></span></div></div>")
+
+), 
+
+ conditionalPanel(
+        condition="!$('html').hasClass('shiny-busy')",
+
       fluidRow(
         column(4, plotOutput("SummaryPlot", height = 300)),
         column(4, plotOutput("GenesPlot", height = 300)),
@@ -37,9 +49,8 @@ shinyUI(
         column(4, plotOutput("GenesPlot3", height = 300)),
         column(4, plotOutput("GenesPlot4", height = 300)),
         column(2)
-        
-        
         )
+  ) # end conditional panel
       )
     )
   )
